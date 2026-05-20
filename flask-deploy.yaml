@@ -1,0 +1,21 @@
+kind: Deployment
+metadata:
+  name: flask-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web 
+  template:
+    metadata:
+      labels:
+        app: web 
+    spec:
+      containers:
+      - name: flask
+        image: houcemdevops/flaskapp:first
+        envFrom:
+          - configMapRef:
+              name: vars
+        ports: 
+          - containerPort: 3000
